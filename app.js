@@ -2,6 +2,7 @@
  *
  * @returns A promise that is designed to resolve with a list of hobbits, or potentially fail with an failure object. The failure object includes a boolean success property and a string message property.
  */
+
 function getList() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -14,11 +15,21 @@ function getList() {
     }, 10);
   });
 }
+const errorPara = document.querySelector("#error");
 
-// TODO: Handle the resolved or rejected states of the promise
+const unorderedList=document.querySelector("#list");
+getList()
+  .then((list) => {
+    list.forEach((item) => {
+      let li = document.createElement("li");
+      li.textContent = item;
+      unorderedList.appendChild(li);
+    });
+  })
+  .catch((err) => {
+   
+    errorPara.textContent = err.message;
+  });
+   
 
-// TODO: If the promise resolves with the list of hobbits
-// Render the list of hobbits as list items within the unordered list with id="list" (check the index.html file)
 
-// TODO: If the promise rejects with the failure object
-// Display the failure message in the paragraph element with id="error" (check index.html file)
